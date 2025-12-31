@@ -1,0 +1,101 @@
+<style>
+    body {
+    font-family: "Tahoma", Arial, sans-serif;
+    background: linear-gradient(to bottom, #f5f7fa, #e6f0ea);
+    margin: 0;
+    padding: 20px;
+    direction: rtl;
+}
+
+h2 {
+    text-align: center;
+    color: #2f855a;
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+table {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: center;
+    font-size: 16px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+    background-color: #2f855a;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f0fdf4;
+}
+
+tr:hover {
+    background-color: #e6f0ea;
+}
+
+td {
+    color: #2d3748;
+}
+
+.done-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.note-input {
+    width: 90%;
+    padding: 5px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e0;
+    font-size: 14px;
+}
+
+</style>
+
+<h2>قائمة الصلوات الفائتة</h2>
+<table>
+    <tr>
+        <th>التاريخ</th>
+        <th>الصلاة</th>
+        <th>تم قضاؤها</th>
+        <th>ملاحظات</th>
+        <th>إجراءات</th>
+    </tr>
+    {% for prayer in prayers %}
+    <tr>
+        <td>{{ prayer.prayer_date }}</td>
+        <td>{{ prayer.get_prayer_name_display }}</td>
+        <td>{{ prayer.done }}</td>
+        <td>{{ prayer.note }}</td>
+        <td>
+            <form method="post" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="prayer_id" value="{{ prayer.id }}">
+                <input type="hidden" name="done" value="{% if not prayer.done %}True{% else %}False{% endif %}">
+                <button type="submit">{{ prayer.done|yesno:"تم,قيد التنفيذ" }}</button>
+            </form>
+
+            <form method="post" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="prayer_id" value="{{ prayer.id }}">
+                <input type="text" name="note" placeholder="أدخل ملاحظتك">
+                <button type="submit">إضافة ملاحظة</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>

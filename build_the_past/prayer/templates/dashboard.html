@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+       body {
+    font-family: "Tahoma", Arial, sans-serif;
+    background: linear-gradient(to bottom, #f5f7fa, #e6f0ea);
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+}
+
+.dashboard {
+    max-width: 420px;
+    margin: 80px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.dashboard h2 {
+    color: #2f855a;
+    margin-bottom: 25px;
+    font-size: 26px;
+}
+
+.dashboard p {
+    font-size: 18px;
+    background: #f0fdf4;
+    padding: 14px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    color: #2d3748;
+    border: 1px solid #c6f6d5;
+}
+
+.dashboard p span {
+    font-weight: bold;
+    color: #22543d;
+    font-size: 20px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+    <h2>لوحة قضاء الصلاة</h2>
+
+    <p>🕌 الصلوات الفائتة: <span>{{ qadaa.total_missed_prayers }}</span></p>
+    <p>⏳ المتبقي: <span>{{ qadaa.remaining_prayers }}</span></p>
+    <p>📅 تقضي يوميًا: <span>{{ qadaa.daily_qadaa }}</span></p>
+</div>
+
+</body>
+</html>
